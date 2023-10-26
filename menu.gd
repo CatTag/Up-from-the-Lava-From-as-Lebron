@@ -5,11 +5,13 @@ extends Control
 @onready var audio = $AudioStreamPlayer2D
 var volume
 @onready var background_colour = $background_colour
+@onready var version = $version
 
 
 
 func _ready():
 	audio.play(7)
+	version.text = "Version: " + str(global.version)
 
 
 func _process(delta):
@@ -46,4 +48,4 @@ func _on_version_gui_input(event):
 
 
 func _on_download_pressed():
-	OS.shell_open("https://youtube.com")
+	OS.shell_open("https://github.com/Cashigtro/Up-from-the-Lava-From-as-Lebron")

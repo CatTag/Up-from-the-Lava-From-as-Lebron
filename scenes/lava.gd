@@ -2,7 +2,8 @@ extends Sprite2D
 
 @onready var lava = $".."
 @onready var timer = $"../../Timer"
-@onready var game_over = $"../../game_over"
+@onready var game_over = $"../../ui/game_over"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

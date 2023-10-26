@@ -1,24 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://efndfqmksbol"]
+[gd_scene load_steps=12 format=3 uid="uid://efndfqmksbol"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eamse"]
 [ext_resource type="Texture2D" uid="uid://c2wadc6q4rgkg" path="res://assets/images/lava.png" id="2_r0c7y"]
 [ext_resource type="Script" path="res://scenes/lava.gd" id="3_6y5xc"]
 [ext_resource type="PackedScene" uid="uid://b7g1o3njxjvaf" path="res://scenes/platform.tscn" id="4_jaqrd"]
+[ext_resource type="Script" path="res://scripts/platform_movement.gd" id="4_tyen2"]
 [ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="5_o76vq"]
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="6_ir5vo"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="7_sm877"]
+[ext_resource type="Script" path="res://scripts/camera_node.gd" id="8_prxls"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giclx"]
 size = Vector2(1518, 1112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ky6ct"]
+size = Vector2(82, 72)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_eamse")
 
 [node name="background" type="ColorRect" parent="."]
+offset_top = -3039.0
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="player" parent="." instance=ExtResource("5_o76vq")]
 position = Vector2(89, 421)
@@ -53,6 +58,15 @@ scale = Vector2(2.92912, 0.858825)
 position = Vector2(977, 322)
 scale = Vector2(2.92912, 0.858825)
 
+[node name="platform7" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(657, 191)
+scale = Vector2(2.92912, 0.858825)
+script = ExtResource("4_tyen2")
+
+[node name="platform8" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(90, 190)
+scale = Vector2(2.92912, 0.858825)
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(652, 1205)
 
@@ -64,7 +78,9 @@ script = ExtResource("3_6y5xc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_giclx")
 
-[node name="game_over" type="Control" parent="."]
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="game_over" type="Control" parent="ui"]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -73,14 +89,14 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_ir5vo")
 
-[node name="ColorRect" type="ColorRect" parent="game_over"]
+[node name="ColorRect" type="ColorRect" parent="ui/game_over"]
 layout_mode = 0
 offset_right = 40.5
 offset_bottom = 648.0
 scale = Vector2(28.72, 1)
 color = Color(0.356863, 0.356863, 0.356863, 0.556863)
 
-[node name="Label" type="Label" parent="game_over"]
+[node name="Label" type="Label" parent="ui/game_over"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -92,7 +108,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 101
 text = "Game Over"
 
-[node name="buttons2" type="VBoxContainer" parent="game_over"]
+[node name="buttons2" type="VBoxContainer" parent="ui/game_over"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,27 +124,42 @@ grow_vertical = 2
 pivot_offset = Vector2(171, 93.5)
 alignment = 1
 
-[node name="retry" type="Button" parent="game_over/buttons2"]
+[node name="retry" type="Button" parent="ui/game_over/buttons2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("7_sm877")
 text = "Retry"
 
-[node name="main_menu" type="Button" parent="game_over/buttons2"]
+[node name="main_menu" type="Button" parent="ui/game_over/buttons2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("7_sm877")
 text = "Main Menu"
 
-[node name="quit" type="Button" parent="game_over/buttons2"]
+[node name="quit" type="Button" parent="ui/game_over/buttons2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("7_sm877")
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Rage Quit"
 
+[node name="camera_node" type="Node2D" parent="."]
+process_mode = 3
+script = ExtResource("8_prxls")
+
+[node name="game_camera" type="Camera2D" parent="camera_node"]
+offset = Vector2(576, 324)
+
+[node name="camera_movement_trigger" type="Area2D" parent="camera_node"]
+position = Vector2(1009, 202)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_node/camera_movement_trigger"]
+position = Vector2(31, 26)
+shape = SubResource("RectangleShape2D_ky6ct")
+
 [connection signal="timeout" from="Timer" to="Area2D/lava" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="Area2D/lava" method="_on_area_2d_body_entered"]
-[connection signal="pressed" from="game_over/buttons2/retry" to="game_over" method="_on_retry_pressed"]
-[connection signal="pressed" from="game_over/buttons2/main_menu" to="game_over" method="_on_main_menu_pressed"]
-[connection signal="pressed" from="game_over/buttons2/quit" to="game_over" method="_on_quit_pressed"]
+[connection signal="pressed" from="ui/game_over/buttons2/retry" to="ui/game_over" method="_on_retry_pressed"]
+[connection signal="pressed" from="ui/game_over/buttons2/main_menu" to="ui/game_over" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="ui/game_over/buttons2/quit" to="ui/game_over" method="_on_quit_pressed"]
+[connection signal="body_entered" from="camera_node/camera_movement_trigger" to="camera_node" method="_on_camera_movement_trigger_body_entered"]
