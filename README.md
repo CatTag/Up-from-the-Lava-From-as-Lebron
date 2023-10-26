@@ -1,2 +1,5 @@
 # Up-from-the-Lava-From-as-Lebron
-a game of fun and games
+
+An epic thrilling game of terror and larva that makes you want to cry in a seat! Where you as lebron will go Up from the Lava From as Lebron. 
+
+### Play [here!](youtuasdf)
