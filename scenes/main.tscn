@@ -1,14 +1,36 @@
-[gd_scene load_steps=12 format=3 uid="uid://efndfqmksbol"]
+[gd_scene load_steps=14 format=3 uid="uid://efndfqmksbol"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eamse"]
 [ext_resource type="Texture2D" uid="uid://c2wadc6q4rgkg" path="res://assets/images/lava.png" id="2_r0c7y"]
 [ext_resource type="Script" path="res://scenes/lava.gd" id="3_6y5xc"]
+[ext_resource type="Script" path="res://scripts/platfroms.gd" id="3_r5xm6"]
 [ext_resource type="PackedScene" uid="uid://b7g1o3njxjvaf" path="res://scenes/platform.tscn" id="4_jaqrd"]
-[ext_resource type="Script" path="res://scripts/platform_movement.gd" id="4_tyen2"]
 [ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="5_o76vq"]
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="6_ir5vo"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="7_sm877"]
 [ext_resource type="Script" path="res://scripts/camera_node.gd" id="8_prxls"]
+
+[sub_resource type="Animation" id="Animation_didmh"]
+resource_name = "move"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platforms/platform7:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6),
+"transitions": PackedFloat32Array(2, 2, 2, 1),
+"update": 0,
+"values": [Vector2(760, 190.64), Vector2(300, 190), Vector2(760, 190), Vector2(760, 190)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pil2g"]
+_data = {
+"move": SubResource("Animation_didmh")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giclx"]
 size = Vector2(1518, 1112)
@@ -33,6 +55,7 @@ wait_time = 1.5
 autostart = true
 
 [node name="platforms" type="Node2D" parent="."]
+script = ExtResource("3_r5xm6")
 
 [node name="platform" parent="platforms" instance=ExtResource("4_jaqrd")]
 position = Vector2(26, 566)
@@ -59,9 +82,14 @@ position = Vector2(977, 322)
 scale = Vector2(2.92912, 0.858825)
 
 [node name="platform7" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(657, 191)
+position = Vector2(300, 217)
 scale = Vector2(2.92912, 0.858825)
-script = ExtResource("4_tyen2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform7"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_pil2g")
+}
 
 [node name="platform8" parent="platforms" instance=ExtResource("4_jaqrd")]
 position = Vector2(90, 190)

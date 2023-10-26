@@ -18,8 +18,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fnq6w"]
-size = Vector2(93, 201)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pxucy"]
+radius = 42.5
+height = 173.0
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_gbain")
@@ -29,5 +30,5 @@ scale = Vector2(0.449802, 0.449802)
 sprite_frames = SubResource("SpriteFrames_313u1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 10.5)
-shape = SubResource("RectangleShape2D_fnq6w")
+position = Vector2(2, 26)
+shape = SubResource("CapsuleShape2D_pxucy")

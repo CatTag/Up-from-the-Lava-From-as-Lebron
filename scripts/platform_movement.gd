@@ -17,6 +17,8 @@ func _process(delta):
 	tween.tween_property(me, "position", Vector2(to, me.position.y), duration)
 	await tween.finished
 	
+	
+	
 	var tween2 = create_tween()
 	tween2.tween_property(me, "position", Vector2(from, me.position.y), duration)
 	await tween2.finished
