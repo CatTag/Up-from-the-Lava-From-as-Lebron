@@ -305,13 +305,13 @@ position = Vector2(31, 26)
 shape = SubResource("RectangleShape2D_ky6ct")
 
 [node name="finish_line" parent="." instance=ExtResource("12_vhpmo")]
-position = Vector2(638, 335)
+position = Vector2(255, -180)
 
 [connection signal="timeout" from="Timer" to="Area2D/lava" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="Area2D/lava" method="_on_area_2d_body_entered"]
 [connection signal="player_death" from="Area2D/lava" to="ui/game_timer" method="_on_lava_player_death"]
-[connection signal="pressed" from="ui/game_finish/buttons2/retry" to="ui/game_timer" method="_on_retry_pressed"]
 [connection signal="pressed" from="ui/game_finish/buttons2/retry" to="ui/game_finish" method="_on_retry_pressed"]
+[connection signal="pressed" from="ui/game_finish/buttons2/retry" to="ui/game_timer" method="_on_retry_pressed"]
 [connection signal="pressed" from="ui/game_finish/buttons2/main_menu" to="ui/game_finish" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ui/game_finish/buttons2/quit" to="ui/game_finish" method="_on_quit_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/retry" to="ui/game_over" method="_on_retry_pressed"]
