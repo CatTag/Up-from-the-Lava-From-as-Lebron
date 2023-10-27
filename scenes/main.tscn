@@ -1,37 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://efndfqmksbol"]
+[gd_scene load_steps=14 format=3 uid="uid://efndfqmksbol"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eamse"]
 [ext_resource type="Texture2D" uid="uid://c2wadc6q4rgkg" path="res://assets/images/lava.png" id="2_r0c7y"]
 [ext_resource type="Script" path="res://scenes/lava.gd" id="3_6y5xc"]
-[ext_resource type="Script" path="res://scripts/platfroms.gd" id="3_r5xm6"]
 [ext_resource type="PackedScene" uid="uid://b7g1o3njxjvaf" path="res://scenes/platform.tscn" id="4_jaqrd"]
 [ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="5_o76vq"]
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="6_ir5vo"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="7_sm877"]
 [ext_resource type="Script" path="res://scripts/camera_node.gd" id="8_prxls"]
+[ext_resource type="Script" path="res://scripts/debug.gd" id="9_cbodu"]
 [ext_resource type="Script" path="res://scripts/game_timer.gd" id="9_j1owt"]
-
-[sub_resource type="Animation" id="Animation_didmh"]
-resource_name = "move"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("platforms/platform7:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4, 6),
-"transitions": PackedFloat32Array(2, 2, 2, 1),
-"update": 0,
-"values": [Vector2(760, 190.64), Vector2(300, 190), Vector2(760, 190), Vector2(760, 190)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pil2g"]
-_data = {
-"move": SubResource("Animation_didmh")
-}
+[ext_resource type="Script" path="res://scripts/camera_up.gd" id="11_33r2f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giclx"]
 size = Vector2(1518, 1112)
@@ -56,7 +35,6 @@ wait_time = 1.5
 autostart = true
 
 [node name="platforms" type="Node2D" parent="."]
-script = ExtResource("3_r5xm6")
 
 [node name="platform" parent="platforms" instance=ExtResource("4_jaqrd")]
 position = Vector2(26, 566)
@@ -83,17 +61,23 @@ position = Vector2(977, 322)
 scale = Vector2(2.92912, 0.858825)
 
 [node name="platform7" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(760, 190.64)
+position = Vector2(696, 236)
 scale = Vector2(2.92912, 0.858825)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="platforms/platform7"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_pil2g")
-}
-
 [node name="platform8" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(90, 190)
+position = Vector2(350, 217)
+scale = Vector2(4.20912, 0.858825)
+
+[node name="platform9" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(97, 141)
+scale = Vector2(2.92912, 0.858825)
+
+[node name="platform10" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(395, 49)
+scale = Vector2(2.92912, 0.858825)
+
+[node name="platform11" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(783, 3)
 scale = Vector2(2.92912, 0.858825)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -178,6 +162,35 @@ offset_bottom = 23.0
 text = "Gyatt"
 script = ExtResource("9_j1owt")
 
+[node name="debug" type="Control" parent="ui"]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("9_cbodu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/debug"]
+layout_mode = 0
+offset_right = 298.0
+offset_bottom = 40.0
+
+[node name="gravity_label" type="Label" parent="ui/debug/VBoxContainer"]
+layout_mode = 2
+text = "gravity"
+
+[node name="gravity" type="HSlider" parent="ui/debug/VBoxContainer"]
+layout_mode = 2
+max_value = 2500.0
+
+[node name="jump_label" type="Label" parent="ui/debug/VBoxContainer"]
+layout_mode = 2
+text = "jump"
+
+[node name="jump" type="HSlider" parent="ui/debug/VBoxContainer"]
+layout_mode = 2
+
 [node name="camera_node" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("8_prxls")
@@ -187,6 +200,7 @@ offset = Vector2(576, 324)
 
 [node name="camera_movement_trigger" type="Area2D" parent="camera_node"]
 position = Vector2(1009, 202)
+script = ExtResource("11_33r2f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="camera_node/camera_movement_trigger"]
 position = Vector2(31, 26)
@@ -197,4 +211,7 @@ shape = SubResource("RectangleShape2D_ky6ct")
 [connection signal="pressed" from="ui/game_over/buttons2/retry" to="ui/game_over" method="_on_retry_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/main_menu" to="ui/game_over" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/quit" to="ui/game_over" method="_on_quit_pressed"]
+[connection signal="drag_ended" from="ui/debug/VBoxContainer/gravity" to="ui/debug" method="_on_gravity_drag_ended"]
+[connection signal="value_changed" from="ui/debug/VBoxContainer/gravity" to="ui/debug" method="_on_gravity_value_changed"]
 [connection signal="body_entered" from="camera_node/camera_movement_trigger" to="camera_node" method="_on_camera_movement_trigger_body_entered"]
+[connection signal="body_entered" from="camera_node/camera_movement_trigger" to="camera_node/camera_movement_trigger" method="_on_body_entered"]

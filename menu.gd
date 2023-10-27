@@ -40,12 +40,14 @@ func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
-func _on_version_gui_input(event):
-	global.debug_mode = true
-	print(event)
-
 
 
 
 func _on_download_pressed():
 	OS.shell_open("https://github.com/Cashigtro/Up-from-the-Lava-From-as-Lebron")
+
+
+
+
+func _on_version_pressed():
+	global.debug_mode = true

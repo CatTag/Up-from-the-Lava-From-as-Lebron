@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ie7jf53t0gnf"]
+[gd_scene load_steps=11 format=3 uid="uid://ie7jf53t0gnf"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_f8x61"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_xf1vg"]
@@ -25,6 +25,16 @@ tracks/0/keys = {
 _data = {
 "tilting": SubResource("Animation_nw8kr")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ak0q1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4evbq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64wnu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xu3x3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5rjy1"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -103,15 +113,21 @@ size_flags_vertical = 3
 theme = ExtResource("2_xf1vg")
 text = "Dawn load the Full Game"
 
-[node name="version" type="Label" parent="."]
+[node name="version" type="Button" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.054902)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ak0q1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4evbq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_64wnu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xu3x3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5rjy1")
 text = "0.22"
-horizontal_alignment = 1
 
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_finished"]
 [connection signal="pressed" from="buttons/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/download" to="." method="_on_download_pressed"]
 [connection signal="gui_input" from="version" to="." method="_on_version_gui_input"]
+[connection signal="mouse_entered" from="version" to="." method="_on_version_mouse_entered"]
+[connection signal="pressed" from="version" to="." method="_on_version_pressed"]
