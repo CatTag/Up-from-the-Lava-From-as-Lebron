@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ie7jf53t0gnf"]
 
-[ext_resource type="Script" path="res://menu.gd" id="1_f8x61"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_8deir"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_xf1vg"]
 [ext_resource type="AudioStream" uid="uid://ds1v5rr6wqnda" path="res://assets/audio/LeBron à la Stain - Extended Mix - Copyright © James69 Tunes - 2023.mp3" id="3_xbpqu"]
 
@@ -43,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_f8x61")
+script = ExtResource("1_8deir")
 
 [node name="background_colour" type="ColorRect" parent="."]
 layout_mode = 1

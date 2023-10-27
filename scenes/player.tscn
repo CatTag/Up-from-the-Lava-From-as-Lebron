@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dj6j6e4ocywb6"]
 
 [ext_resource type="Texture2D" uid="uid://nkhnw3yc037l" path="res://assets/images/jump.png" id="1_c7nm4"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_gbain"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_gbain"]
 [ext_resource type="Texture2D" uid="uid://bjc4epjwdrere" path="res://assets/images/walk.png" id="2_4y8f8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_313u1"]
