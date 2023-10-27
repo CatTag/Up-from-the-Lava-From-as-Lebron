@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://efndfqmksbol"]
+[gd_scene load_steps=15 format=3 uid="uid://efndfqmksbol"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_eamse"]
 [ext_resource type="Texture2D" uid="uid://c2wadc6q4rgkg" path="res://assets/images/lava.png" id="2_r0c7y"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/debug.gd" id="9_cbodu"]
 [ext_resource type="Script" path="res://scripts/game_timer.gd" id="9_j1owt"]
 [ext_resource type="Script" path="res://scripts/camera_up.gd" id="11_33r2f"]
+[ext_resource type="PackedScene" uid="uid://btk5litgbq8ub" path="res://scenes/finish_line.tscn" id="12_vhpmo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giclx"]
 size = Vector2(1518, 1112)
@@ -61,24 +62,36 @@ position = Vector2(977, 322)
 scale = Vector2(2.92912, 0.858825)
 
 [node name="platform7" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(696, 236)
-scale = Vector2(2.92912, 0.858825)
+position = Vector2(702, 264)
+scale = Vector2(3.66967, 0.242491)
 
 [node name="platform8" parent="platforms" instance=ExtResource("4_jaqrd")]
 position = Vector2(350, 217)
-scale = Vector2(4.20912, 0.858825)
+scale = Vector2(5.36324, 0.858825)
 
 [node name="platform9" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(97, 141)
-scale = Vector2(2.92912, 0.858825)
+position = Vector2(123, 148)
+scale = Vector2(2.92912, 1.74476)
 
 [node name="platform10" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(395, 49)
-scale = Vector2(2.92912, 0.858825)
+position = Vector2(376, 74)
+scale = Vector2(4.5307, 0.285315)
 
 [node name="platform11" parent="platforms" instance=ExtResource("4_jaqrd")]
-position = Vector2(783, 3)
-scale = Vector2(2.92912, 0.858825)
+position = Vector2(857, 50)
+scale = Vector2(-5.25052, 0.185395)
+
+[node name="platform12" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(1139, 1)
+scale = Vector2(-5.25052, 0.185395)
+
+[node name="platform13" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(796, -75)
+scale = Vector2(-5.25052, 0.185395)
+
+[node name="platform14" parent="platforms" instance=ExtResource("4_jaqrd")]
+position = Vector2(377, -78)
+scale = Vector2(-5.25052, 0.185395)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(652, 1205)
@@ -92,6 +105,79 @@ script = ExtResource("3_6y5xc")
 shape = SubResource("RectangleShape2D_giclx")
 
 [node name="ui" type="CanvasLayer" parent="."]
+
+[node name="game_finish" type="Control" parent="ui"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_ir5vo")
+
+[node name="ColorRect" type="ColorRect" parent="ui/game_finish"]
+layout_mode = 0
+offset_right = 40.5
+offset_bottom = 648.0
+scale = Vector2(28.72, 1)
+color = Color(0.356863, 0.356863, 0.356863, 0.556863)
+
+[node name="Label" type="Label" parent="ui/game_finish"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 269.0
+offset_right = 818.0
+offset_bottom = 141.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 101
+text = "Winner of!"
+
+[node name="score" type="Label" parent="ui/game_finish"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 121.0
+offset_right = 1152.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 36
+text = "Score: "
+horizontal_alignment = 1
+
+[node name="buttons2" type="VBoxContainer" parent="ui/game_finish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 372.0
+offset_top = 195.0
+offset_right = 710.0
+offset_bottom = 382.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(171, 93.5)
+alignment = 1
+
+[node name="retry" type="Button" parent="ui/game_finish/buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_sm877")
+text = "Retry"
+
+[node name="main_menu" type="Button" parent="ui/game_finish/buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_sm877")
+text = "Main Menu"
+
+[node name="quit" type="Button" parent="ui/game_finish/buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("7_sm877")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Rage Quit"
 
 [node name="game_over" type="Control" parent="ui"]
 process_mode = 3
@@ -120,6 +206,16 @@ offset_bottom = 141.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 101
 text = "Game Over"
+
+[node name="score" type="Label" parent="ui/game_over"]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 121.0
+offset_right = 1152.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 36
+text = "Score: "
+horizontal_alignment = 1
 
 [node name="buttons2" type="VBoxContainer" parent="ui/game_over"]
 layout_mode = 1
@@ -157,8 +253,10 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 text = "Rage Quit"
 
 [node name="game_timer" type="Label" parent="ui"]
+process_mode = 3
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 31
 text = "Gyatt"
 script = ExtResource("9_j1owt")
 
@@ -206,12 +304,22 @@ script = ExtResource("11_33r2f")
 position = Vector2(31, 26)
 shape = SubResource("RectangleShape2D_ky6ct")
 
+[node name="finish_line" parent="." instance=ExtResource("12_vhpmo")]
+position = Vector2(638, 335)
+
 [connection signal="timeout" from="Timer" to="Area2D/lava" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="Area2D/lava" method="_on_area_2d_body_entered"]
+[connection signal="player_death" from="Area2D/lava" to="ui/game_timer" method="_on_lava_player_death"]
+[connection signal="pressed" from="ui/game_finish/buttons2/retry" to="ui/game_timer" method="_on_retry_pressed"]
+[connection signal="pressed" from="ui/game_finish/buttons2/retry" to="ui/game_finish" method="_on_retry_pressed"]
+[connection signal="pressed" from="ui/game_finish/buttons2/main_menu" to="ui/game_finish" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="ui/game_finish/buttons2/quit" to="ui/game_finish" method="_on_quit_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/retry" to="ui/game_over" method="_on_retry_pressed"]
+[connection signal="pressed" from="ui/game_over/buttons2/retry" to="ui/game_timer" method="_on_retry_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/main_menu" to="ui/game_over" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="ui/game_over/buttons2/quit" to="ui/game_over" method="_on_quit_pressed"]
 [connection signal="drag_ended" from="ui/debug/VBoxContainer/gravity" to="ui/debug" method="_on_gravity_drag_ended"]
 [connection signal="value_changed" from="ui/debug/VBoxContainer/gravity" to="ui/debug" method="_on_gravity_value_changed"]
 [connection signal="body_entered" from="camera_node/camera_movement_trigger" to="camera_node" method="_on_camera_movement_trigger_body_entered"]
 [connection signal="body_entered" from="camera_node/camera_movement_trigger" to="camera_node/camera_movement_trigger" method="_on_body_entered"]
+[connection signal="finish" from="finish_line" to="." method="_on_finish_line_finish"]

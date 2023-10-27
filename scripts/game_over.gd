@@ -1,5 +1,6 @@
 extends Control
 
+signal retry_button_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,3 +24,4 @@ func _on_main_menu_pressed():
 func _on_retry_pressed():
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	retry_button_pressed.emit()

@@ -4,6 +4,7 @@ extends Sprite2D
 @onready var timer = $"../../Timer"
 @onready var game_over = $"../../ui/game_over"
 
+signal player_death
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,4 +26,6 @@ func move_lava():
 func _on_area_2d_body_entered(body):
 	if body.name == "player":
 		game_over.visible = true
+		player_death.emit()
 		get_tree().paused = true
+	
