@@ -1,7 +1,9 @@
 extends Control
 
-@onready var title_splash := $title_splash
-@onready var animation_player = $title_splash/AnimationPlayer
+@onready var title_splash = $title/title_splash
+@onready var animation_player = $title/title_splash/AnimationPlayer
+@onready var reloaded_title_splash = $title/reloaded_splash
+@onready var reloaded_animation_player = $title/reloaded_splash/AnimationPlayer
 @onready var audio = $AudioStreamPlayer2D
 var volume
 @onready var background_colour = $background_colour
@@ -16,6 +18,7 @@ func _ready():
 
 func _process(delta):
 	animation_player.play("tilting")
+	reloaded_animation_player.play("tilting")
 	await animation_player.animation_finished
 	volume = AudioServer.get_bus_volume_db(0)
 	print(volume)
@@ -37,11 +40,7 @@ func _on_play_pressed():
 			count += 1
 			
 	await tween.finished
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
-
-
-
-
+	get_tree().change_scene_to_file("res://scenes/levels/level" + str(global.current_level) + ".tscn")
 
 func _on_download_pressed():
 	OS.shell_open("https://github.com/Cashigtro/Up-from-the-Lava-From-as-Lebron")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc4qhch611en5"]
+
+[ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
+[ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="2_ctdu2"]
+[ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="3_o5vkr"]
+
+[node name="level1" type="Node2D"]
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="lava" parent="." instance=ExtResource("1_a2kk2")]
+position = Vector2(-1253, 311)
+move_distance = 50.0
+
+[node name="timer" parent="." instance=ExtResource("2_ctdu2")]
+
+[node name="player" parent="." instance=ExtResource("3_o5vkr")]

@@ -1,6 +1,5 @@
 extends Node
 
 var debug_mode = false
-var version = 0.33
-var gravity = 1200
-var jump := -400.0
+var version = "0.1.33"
+var current_level = 1
