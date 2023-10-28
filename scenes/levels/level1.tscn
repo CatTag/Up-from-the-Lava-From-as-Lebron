@@ -1,18 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc4qhch611en5"]
+[gd_scene load_steps=7 format=3 uid="uid://cc4qhch611en5"]
 
+[ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_4vssq"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
 [ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="2_ctdu2"]
+[ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="3_8a5mm"]
 [ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="3_o5vkr"]
+[ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="5_32hxy"]
 
 [node name="level1" type="Node2D"]
+script = ExtResource("1_4vssq")
 
-[node name="camera" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="timer" parent="CanvasLayer" instance=ExtResource("2_ctdu2")]
+
+[node name="background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 0
+color = Color(0, 0, 0, 1)
+
+[node name="player" parent="." instance=ExtResource("3_o5vkr")]
+position = Vector2(123, 385)
+
+[node name="platforms" type="Node2D" parent="."]
+
+[node name="platform" parent="platforms" instance=ExtResource("5_32hxy")]
+position = Vector2(79, 512)
+scale = Vector2(43.9757, 1.15262)
 
 [node name="lava" parent="." instance=ExtResource("1_a2kk2")]
 position = Vector2(-1253, 311)
 move_distance = 50.0
 
-[node name="timer" parent="." instance=ExtResource("2_ctdu2")]
+[node name="camera" type="Node2D" parent="."]
+process_mode = 3
 
-[node name="player" parent="." instance=ExtResource("3_o5vkr")]
+[node name="camera" type="Camera2D" parent="camera"]
+position = Vector2(576, 324)
+scale = Vector2(1.31992, 1.45322)
+position_smoothing_enabled = true
+
+[node name="camera_movement_trigger" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(576, 324)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 350.0
+duration = 1.0
+
+[connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]

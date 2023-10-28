@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://csc4y55bxlon0"]
+
+[ext_resource type="Script" path="res://scripts/camera_movement_trigger.gd" id="1_53x8b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j44dr"]
+
+[node name="camera_movement_trigger" type="Area2D"]
+process_mode = 3
+script = ExtResource("1_53x8b")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+scale = Vector2(5.94907, 5.94907)
+shape = SubResource("RectangleShape2D_j44dr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

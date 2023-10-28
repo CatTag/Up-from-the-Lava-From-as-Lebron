@@ -17,3 +17,5 @@ texture = ExtResource("1_1dcix")
 shape = SubResource("RectangleShape2D_8jn53")
 
 [node name="timer" type="Timer" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]

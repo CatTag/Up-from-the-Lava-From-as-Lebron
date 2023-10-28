@@ -6,9 +6,11 @@ extends Control
 @onready var timer_label = $timer_label
 
 var current_time: float
+var speed: String
+
 
 func get_time():
-	var current_time = Time.get_ticks_msec() - game_start_time
+	var current_time = (Time.get_ticks_msec() - game_start_time)
 	var minutes = int(current_time / 60000)  # 60000 milliseconds in a minute
 	var seconds = int((current_time % 60000) / 1000)  # Calculate remaining seconds
 	var milliseconds = int(current_time % 1000)  # Calculate milliseconds
@@ -29,7 +31,9 @@ func get_time():
 		elif len(str(milliseconds)) <= 0:
 			milliseconds = "000"+str(milliseconds)		
 	
+
 	return str(minutes) + ":" + str(seconds) + "." + str(milliseconds)
 
 func _process(delta):
-	timer_label.text = str(get_time())
+	var speed = get_time()
+	timer_label.text = str(speed)

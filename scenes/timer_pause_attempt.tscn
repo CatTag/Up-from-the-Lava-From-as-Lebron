@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://4ih78j8en1hk"]
+[gd_scene load_steps=2 format=3 uid="uid://vtox6nm5ki74"]
 
-[ext_resource type="Script" path="res://scripts/timer.gd" id="1_vopco"]
+[ext_resource type="Script" path="res://scripts/timer.gd" id="1_722dp"]
 
 [node name="timer" type="Control"]
 process_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_vopco")
+script = ExtResource("1_722dp")
 
 [node name="timer_label" type="Label" parent="."]
 layout_mode = 1
