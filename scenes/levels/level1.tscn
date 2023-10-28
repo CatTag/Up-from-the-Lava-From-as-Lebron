@@ -1,27 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc4qhch611en5"]
+[gd_scene load_steps=9 format=3 uid="uid://cc4qhch611en5"]
 
 [ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_4vssq"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
 [ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="2_ctdu2"]
 [ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="3_8a5mm"]
-[ext_resource type="PackedScene" uid="uid://dj6j6e4ocywb6" path="res://scenes/player.tscn" id="3_o5vkr"]
+[ext_resource type="PackedScene" uid="uid://2uwcb8r6ohw4" path="res://scenes/game_over.tscn" id="3_iogaf"]
+[ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="4_074p4"]
 [ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="5_32hxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xah"]
+size = Vector2(53, 55)
 
 [node name="level1" type="Node2D"]
 script = ExtResource("1_4vssq")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ui" type="CanvasLayer" parent="."]
 
-[node name="timer" parent="CanvasLayer" instance=ExtResource("2_ctdu2")]
+[node name="timer" parent="ui" instance=ExtResource("2_ctdu2")]
+
+[node name="game_over" parent="ui" instance=ExtResource("3_iogaf")]
 
 [node name="background" type="ColorRect" parent="."]
-offset_right = 1152.0
+offset_top = -5080.0
+offset_right = 17376.0
 offset_bottom = 648.0
 size_flags_horizontal = 0
 color = Color(0, 0, 0, 1)
 
-[node name="player" parent="." instance=ExtResource("3_o5vkr")]
-position = Vector2(123, 385)
+[node name="player" parent="." instance=ExtResource("4_074p4")]
+position = Vector2(273, 265)
+scale = Vector2(0.58979, 0.58979)
 
 [node name="platforms" type="Node2D" parent="."]
 
@@ -30,7 +38,7 @@ position = Vector2(79, 512)
 scale = Vector2(43.9757, 1.15262)
 
 [node name="lava" parent="." instance=ExtResource("1_a2kk2")]
-position = Vector2(-1253, 311)
+position = Vector2(-1280, 309)
 move_distance = 50.0
 
 [node name="camera" type="Node2D" parent="."]
@@ -47,5 +55,16 @@ scale = Vector2(1, 4.64)
 camera_node = NodePath("../camera")
 new_x_adjustment = 350.0
 duration = 1.0
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(420, 50)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(16.5, 17.5)
+shape = SubResource("RectangleShape2D_21xah")
+
+[node name="ColorRect" type="ColorRect" parent="RigidBody2D"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]

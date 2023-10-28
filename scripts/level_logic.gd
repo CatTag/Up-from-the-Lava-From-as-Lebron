@@ -1,12 +1,16 @@
 extends Node2D
 
+@onready var timer = $ui/timer
+@onready var game_over_screen = $ui/game_over
+
 func _on_lava_body_entered(body):
-	pass # Replace with function body.
-
-
+	if body.name == "player":
+		game_over()
 
 func game_over():
-	pass
+#	global.score = timer.text
+	game_over_screen.visible = true
+	get_tree().paused = true
 
 func game_win():
 	pass
