@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cc4qhch611en5"]
+[gd_scene load_steps=10 format=3 uid="uid://cc4qhch611en5"]
 
 [ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_4vssq"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://2uwcb8r6ohw4" path="res://scenes/game_over.tscn" id="3_iogaf"]
 [ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="4_074p4"]
 [ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="5_32hxy"]
+[ext_resource type="PackedScene" uid="uid://bh8r4ep8r58bv" path="res://scenes/finish_1.tscn" id="5_hx252"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21xah"]
 size = Vector2(53, 55)
@@ -30,6 +31,10 @@ color = Color(0, 0, 0, 1)
 [node name="player" parent="." instance=ExtResource("4_074p4")]
 position = Vector2(273, 265)
 scale = Vector2(0.58979, 0.58979)
+
+[node name="finish1" parent="." instance=ExtResource("5_hx252")]
+position = Vector2(953, 470)
+scale = Vector2(0.0952933, 0.0952933)
 
 [node name="platforms" type="Node2D" parent="."]
 
@@ -57,7 +62,7 @@ new_x_adjustment = 350.0
 duration = 1.0
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(420, 50)
+position = Vector2(762, 257)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(16.5, 17.5)

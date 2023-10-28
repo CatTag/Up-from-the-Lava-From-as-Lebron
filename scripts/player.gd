@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var name_label = $name
 @onready var sprite = $sprite
 var SPEED = 300.0
 var JUMP_VELOCITY = -400
@@ -8,6 +9,10 @@ var JUMP_VELOCITY = -400
 #defailt gravity is 980
 var gravity = 980
 
+func _ready():
+	name_label.text = global.local_name
+	sprite.self_modulate = global.local_color
+	
 
 func _physics_process(delta):
 	# Add the gravity.

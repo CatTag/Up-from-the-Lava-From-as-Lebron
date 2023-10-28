@@ -50,3 +50,5 @@ func _on_download_pressed():
 
 func _on_version_pressed():
 	global.debug_mode = true
+
+

@@ -32,3 +32,12 @@ sprite_frames = SubResource("SpriteFrames_322pg")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(2, 26)
 shape = SubResource("CapsuleShape2D_bex2g")
+
+[node name="name" type="Label" parent="."]
+offset_left = -102.0
+offset_top = -140.0
+offset_right = 120.0
+offset_bottom = -114.0
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
