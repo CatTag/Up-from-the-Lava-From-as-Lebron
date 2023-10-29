@@ -11,3 +11,5 @@ func _on_websoket_pressed():
 
 func _on_speedrunsed_pressed():
 	OS.shell_open("https://youtube.com/@sedspeedruns")
+
+
