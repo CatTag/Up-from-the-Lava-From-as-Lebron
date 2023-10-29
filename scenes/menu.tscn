@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://ie7jf53t0gnf"]
+[gd_scene load_steps=22 format=3 uid="uid://ie7jf53t0gnf"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_8deir"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_xf1vg"]
-[ext_resource type="AudioStream" uid="uid://ds1v5rr6wqnda" path="res://assets/audio/LeBron à la Stain - Extended Mix - Copyright © James69 Tunes - 2023.mp3" id="3_xbpqu"]
+[ext_resource type="AudioStream" uid="uid://cet4c7i21mj0i" path="res://assets/audio/lebron james reloaded song_2.mp3" id="3_a2faw"]
 [ext_resource type="Script" path="res://scripts/leaderboard.gd" id="4_ddc3v"]
 [ext_resource type="Script" path="res://scripts/customization.gd" id="4_jyetr"]
 [ext_resource type="Texture2D" uid="uid://bjc4epjwdrere" path="res://assets/images/walk.png" id="5_lybql"]
+[ext_resource type="Script" path="res://scripts/settings.gd" id="7_ceyti"]
+[ext_resource type="Theme" uid="uid://bwdmo4f40lbgy" path="res://settings_theme.tres" id="8_3vsdl"]
 
 [sub_resource type="Animation" id="Animation_nw8kr"]
 resource_name = "tilting"
@@ -38,6 +40,53 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xu3x3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5rjy1"]
+
+[sub_resource type="Animation" id="Animation_t7bm0"]
+resource_name = "move_in"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector2(1175, 92), Vector2(800, 92)]
+}
+
+[sub_resource type="Animation" id="Animation_p00je"]
+resource_name = "move_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector2(800, 92), Vector2(1175, 92)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6in7r"]
+_data = {
+"move_in": SubResource("Animation_t7bm0"),
+"move_out": SubResource("Animation_p00je")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3de0r"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66o2t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sty02"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -109,7 +158,7 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_xbpqu")
+stream = ExtResource("3_a2faw")
 volume_db = 5.475
 max_distance = 3.45635e+15
 
@@ -139,6 +188,7 @@ text = "Play"
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_xf1vg")
+toggle_mode = true
 text = "Cogan"
 
 [node name="download" type="Button" parent="buttons"]
@@ -190,10 +240,10 @@ layout_mode = 2
 [node name="colour_input" type="ColorPicker" parent="TabContainer/customization"]
 visible = false
 layout_mode = 2
-offset_left = 869.0
-offset_top = -68.0
-offset_right = 1155.0
-offset_bottom = 500.0
+offset_left = 885.0
+offset_top = -60.0
+offset_right = 1163.0
+offset_bottom = 508.0
 
 [node name="colour" type="HSplitContainer" parent="TabContainer/customization"]
 layout_mode = 1
@@ -236,6 +286,7 @@ scale = Vector2(0.736533, 0.357488)
 texture = ExtResource("5_lybql")
 
 [node name="leaderboard" type="ScrollContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="people" type="VBoxContainer" parent="TabContainer/leaderboard"]
@@ -249,12 +300,116 @@ text = "The game is getting the scores"
 [node name="HTTPRequest" type="HTTPRequest" parent="TabContainer/leaderboard"]
 script = ExtResource("4_ddc3v")
 
+[node name="settings" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1175.0
+offset_top = 92.0
+offset_right = 1175.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_ceyti")
+
+[node name="background" type="ColorRect" parent="settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.53, 0.78)
+color = Color(0.243137, 0.243137, 0.243137, 0.713726)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="settings"]
+libraries = {
+"": SubResource("AnimationLibrary_6in7r")
+}
+
+[node name="settings_box" type="VBoxContainer" parent="settings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.304
+anchor_bottom = 0.779
+offset_right = -0.207123
+offset_bottom = 0.207977
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_3vsdl")
+
+[node name="iggames" type="Button" parent="settings/settings_box"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0.282353, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_3de0r")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_66o2t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sty02")
+text = "igGames Productions©"
+alignment = 0
+
+[node name="music" type="HSplitContainer" parent="settings/settings_box"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="music_label" type="Label" parent="settings/settings_box/music"]
+layout_mode = 2
+text = "music: "
+
+[node name="music_checkbox" type="CheckBox" parent="settings/settings_box/music"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+
+[node name="single_player" type="HSplitContainer" parent="settings/settings_box"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="label" type="Label" parent="settings/settings_box/single_player"]
+layout_mode = 2
+text = "single player: "
+
+[node name="check_box" type="CheckBox" parent="settings/settings_box/single_player"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+
+[node name="custom_server" type="HSplitContainer" parent="settings/settings_box"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="label" type="Label" parent="settings/settings_box/custom_server"]
+layout_mode = 2
+text = "custom server: "
+
+[node name="LineEdit" type="LineEdit" parent="settings/settings_box/custom_server"]
+layout_mode = 2
+
+[node name="debug_mode" type="HSplitContainer" parent="settings/settings_box"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="label" type="Label" parent="settings/settings_box/debug_mode"]
+layout_mode = 2
+text = "debug mode: "
+
+[node name="LineEdit" type="LineEdit" parent="settings/settings_box/debug_mode"]
+layout_mode = 2
+
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_finished"]
 [connection signal="pressed" from="buttons/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/play" to="TabContainer/customization" method="_on_play_pressed"]
+[connection signal="toggled" from="buttons/settings" to="." method="_on_settings_toggled"]
 [connection signal="pressed" from="buttons/download" to="." method="_on_download_pressed"]
 [connection signal="gui_input" from="version" to="." method="_on_version_gui_input"]
 [connection signal="mouse_entered" from="version" to="." method="_on_version_mouse_entered"]
 [connection signal="pressed" from="version" to="." method="_on_version_pressed"]
 [connection signal="toggled" from="TabContainer/customization/colour/colour_button" to="." method="_on_colour_button_toggled"]
 [connection signal="toggled" from="TabContainer/customization/colour/colour_button" to="TabContainer/customization" method="_on_colour_button_toggled"]
+[connection signal="pressed" from="settings/settings_box/iggames" to="settings" method="_on_iggames_pressed"]

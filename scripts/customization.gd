@@ -10,10 +10,25 @@ extends Control
 @onready var colour_button = $colour/colour_button
 
 
+func name_valid(n: String) -> bool:
+	if n.length() >= 3 && n.length() <= 16 && n != "":
+		for i in n:
+			if i == " ":
+				return true
+		return false
+	return true
+
+
 func _process(delta):
 	lebron.self_modulate = colour_input.color
 	example_name.text = name_input.text
 	colour_button.add_theme_color_override("theme_override_colors/font_color", colour_input.color)
+	if name_valid(name_input.text):
+		play.disabled = true
+		play.text = "Set a name first!"
+	else:
+		play.disabled = false
+		play.text = "Play"
 	
 func _on_play_pressed():
 	global.local_color = colour_input.color

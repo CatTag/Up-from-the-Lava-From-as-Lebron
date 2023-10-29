@@ -8,11 +8,15 @@ extends Control
 var volume
 @onready var background_colour = $background_colour
 @onready var version = $version
+@onready var settings_animation_player = $settings/AnimationPlayer
+@onready var settings = $settings
+@onready var settings_button = $buttons/settings
 
 
 
 func _ready():
-	audio.play(7)
+#	audio.play(7)
+	audio.play()
 	version.text = "Version: " + str(global.version)
 
 
@@ -23,8 +27,8 @@ func _process(delta):
 	volume = AudioServer.get_bus_volume_db(0)
 	print(volume)
 func _on_audio_finished():
-	audio.play(7)
-
+#	audio.play(7)
+	audio.play()
 
 func _on_play_pressed():
 	var tween = create_tween().set_parallel(true)
@@ -52,3 +56,24 @@ func _on_version_pressed():
 	global.debug_mode = true
 
 
+
+
+func _on_settings_toggled(button_pressed):
+	var tween = create_tween()
+	if button_pressed:
+		settings_button.disabled = true
+		settings_animation_player.play("move_in")
+		await settings_animation_player.animation_finished
+		settings_button.disabled = false
+#		tween.tween_property(settings, "position", settings.position + Vector2(1175, 0), 1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+#		if !button_pressed:
+#			tween.kill()
+	if !button_pressed:
+		settings_button.disabled = true
+		settings_animation_player.play("move_out")
+		await settings_animation_player.animation_finished
+		settings_button.disabled = false
+#		tween.tween_property(settings, "position", settings.position + Vector2(800, 0), 1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+#		if button_pressed:
+#			tween.kill()
+		
