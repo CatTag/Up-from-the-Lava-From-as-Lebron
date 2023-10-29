@@ -1,7 +1,7 @@
 extends Node
 
 var debug_mode = false
-var version = "0.1.42"
+var version = "alpha.1.50"
 # rules for version
 # - every time you commit it goes up by one
 #    - if it is a small hotfix then just the end number
