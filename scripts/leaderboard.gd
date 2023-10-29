@@ -4,6 +4,11 @@ extends HTTPRequest
 var url = "http://dreamlo.com/lb/cDBT1v2pkEC_cuoZy7-BzQEO5o81ms5kanfKzY2LKYdQ"
 var leaderboard
 var method = HTTPClient.METHOD_GET
+var arrow = preload("res://assets/images/arrow_right.png")
+var rank: int
+var player_name: String
+
+signal more_info_button_pressed(rank, player_name)
 
 func _ready():
 	connect("request_completed", populate_leaderboard)
@@ -69,8 +74,13 @@ func populate_leaderboard(result, response_code, header, body):
 			label.label_settings.font_color = Color(255,255,255)
 			
 		label.text = (str(count+1) + "# " + i['name'] + ": " + get_time(int(i['score'])))
+
+		# -"texture_normal"
+		
+		
+		# - 
 		
 		people.add_child(label)
 		count += 1
-	
-	
+
+		

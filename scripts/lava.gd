@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var timer = $timer
 @onready var lava = $"."
+@onready var player = $"../player"
 
 @export var move_every := 1.0
 @export var move_distance := 200.0

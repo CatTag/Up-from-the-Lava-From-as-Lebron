@@ -23,6 +23,8 @@ radius = 42.5
 height = 173.0
 
 [node name="player" type="CharacterBody2D"]
+floor_stop_on_slope = false
+platform_on_leave = 1
 script = ExtResource("1_1yeah")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]

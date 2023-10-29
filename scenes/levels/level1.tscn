@@ -1,19 +1,58 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc4qhch611en5"]
+[gd_scene load_steps=17 format=3 uid="uid://cc4qhch611en5"]
 
 [ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_4vssq"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
+[ext_resource type="AudioStream" uid="uid://byp0rfdb8s2vo" path="res://assets/audio/death.wav" id="2_5c4d0"]
 [ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="2_ctdu2"]
 [ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="3_8a5mm"]
 [ext_resource type="PackedScene" uid="uid://2uwcb8r6ohw4" path="res://scenes/game_over.tscn" id="3_iogaf"]
 [ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="4_074p4"]
 [ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="5_32hxy"]
 [ext_resource type="PackedScene" uid="uid://bh8r4ep8r58bv" path="res://scenes/finish_1.tscn" id="5_hx252"]
+[ext_resource type="PackedScene" uid="uid://djn0fe1y6a07u" path="res://scenes/spike.tscn" id="8_py7hd"]
+[ext_resource type="Script" path="res://scripts/slippery_platform.gd" id="9_5mf8s"]
+[ext_resource type="PackedScene" uid="uid://xrsoqyvx2ewa" path="res://scenes/ball.tscn" id="10_r75uu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21xah"]
-size = Vector2(53, 55)
+[sub_resource type="Animation" id="Animation_47jgf"]
+resource_name = "move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(2, 2, 2),
+"update": 0,
+"values": [Vector2(558, 323), Vector2(900, 323), Vector2(558, 323)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pk1tu"]
+_data = {
+"move": SubResource("Animation_47jgf")
+}
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_knr21"]
+friction = 0.05
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mccxw"]
+size = Vector2(40, 40)
 
 [node name="level1" type="Node2D"]
 script = ExtResource("1_4vssq")
+
+[node name="sound" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="death" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("2_5c4d0")
+volume_db = 2.0
+max_distance = 4.53453e+10
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -32,19 +71,192 @@ color = Color(0, 0, 0, 1)
 position = Vector2(273, 265)
 scale = Vector2(0.58979, 0.58979)
 
-[node name="finish1" parent="." instance=ExtResource("5_hx252")]
-position = Vector2(953, 470)
+[node name="blocks" type="Node2D" parent="."]
+
+[node name="platform4" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(1404, -515)
+rotation = 1.57079
+scale = Vector2(14.3777, 0.376845)
+
+[node name="platform7" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2003, 348)
+rotation = 1.57079
+scale = Vector2(4.93882, 0.691793)
+
+[node name="platform5" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(1410, 392)
+rotation = 1.57079
+scale = Vector2(14.3777, 0.376845)
+
+[node name="platform2" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(427, 404)
+scale = Vector2(1.19212, 1.19717)
+
+[node name="platform8" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2142, 285)
+scale = Vector2(1.19212, 1.19717)
+
+[node name="platform9" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2302, 343)
+scale = Vector2(1.19212, 1.19717)
+
+[node name="platform10" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2464, 285)
+scale = Vector2(1.19212, 1.19717)
+
+[node name="platform6" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(1619, 464)
+scale = Vector2(1.19212, 1.19717)
+
+[node name="platform3" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(565.695, 323)
+scale = Vector2(1.79212, 0.277168)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blocks/platform3"]
+autoplay = "move"
+libraries = {
+"": SubResource("AnimationLibrary_pk1tu")
+}
+
+[node name="finish1" parent="blocks" instance=ExtResource("5_hx252")]
+position = Vector2(707, 466)
 scale = Vector2(0.0952933, 0.0952933)
 
-[node name="platforms" type="Node2D" parent="."]
+[node name="finish2" parent="blocks" instance=ExtResource("5_hx252")]
+position = Vector2(848, 466)
+scale = Vector2(0.0952933, 0.0952933)
 
-[node name="platform" parent="platforms" instance=ExtResource("5_32hxy")]
+[node name="finish3" parent="blocks" instance=ExtResource("5_hx252")]
+position = Vector2(2168, 445)
+scale = Vector2(0.127349, 0.127349)
+
+[node name="finish4" parent="blocks" instance=ExtResource("5_hx252")]
+position = Vector2(2490, 445)
+scale = Vector2(0.127349, 0.127349)
+
+[node name="spike" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(951, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike5" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1367, 510)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike6" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1388, 42)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike7" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1393, 429)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike2" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(991, 512)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike3" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1030, 512)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike8" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1218, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike9" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1263, 512)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike10" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(1311, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike11" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2022, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike12" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2066, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike13" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2113, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike14" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2160, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike15" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2204, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike16" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2248, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike17" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2295, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike18" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2342, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike19" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2390, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike20" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2434, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike21" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2481, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike22" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2528, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike4" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(123, 953)
+scale = Vector2(105.725, 0.405339)
+
+[node name="slippery_platform" type="StaticBody2D" parent="blocks"]
+position = Vector2(1043, 328)
+rotation = -0.568286
+scale = Vector2(5.65689, 0.474486)
+physics_material_override = SubResource("PhysicsMaterial_knr21")
+script = ExtResource("9_5mf8s")
+
+[node name="ColorRect" type="ColorRect" parent="blocks/slippery_platform"]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocks/slippery_platform"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_mccxw")
+
+[node name="collider" type="Area2D" parent="blocks/slippery_platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocks/slippery_platform/collider"]
+position = Vector2(20.09, -10.214)
+scale = Vector2(1, 2.48)
+shape = SubResource("RectangleShape2D_mccxw")
+
+[node name="ball" parent="blocks" instance=ExtResource("10_r75uu")]
+position = Vector2(1666, 412)
+rotation = 0.132451
+
+[node name="platform" parent="blocks" instance=ExtResource("5_32hxy")]
 position = Vector2(79, 512)
-scale = Vector2(43.9757, 1.15262)
+scale = Vector2(100, 1.153)
 
 [node name="lava" parent="." instance=ExtResource("1_a2kk2")]
 position = Vector2(-1280, 309)
-move_distance = 50.0
 
 [node name="camera" type="Node2D" parent="."]
 process_mode = 3
@@ -55,22 +267,47 @@ scale = Vector2(1.31992, 1.45322)
 position_smoothing_enabled = true
 
 [node name="camera_movement_trigger" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
-position = Vector2(576, 324)
+position = Vector2(1142, 299)
 scale = Vector2(1, 4.64)
 camera_node = NodePath("../camera")
 new_x_adjustment = 350.0
 duration = 1.0
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(762, 257)
-mass = 0.01
+[node name="camera_movement_trigger2" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(1507, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 700.0
+duration = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(16.5, 17.5)
-shape = SubResource("RectangleShape2D_21xah")
+[node name="camera_movement_trigger3" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(2033, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 800.0
+duration = 1.0
 
-[node name="ColorRect" type="ColorRect" parent="RigidBody2D"]
-offset_right = 40.0
-offset_bottom = 40.0
-
+[connection signal="body_entered" from="blocks/spike" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike5" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike6" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike7" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike2" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike3" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike8" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike9" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike10" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike11" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike12" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike13" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike14" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike15" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike16" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike17" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike18" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike19" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike20" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike21" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike22" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike4" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/slippery_platform/collider" to="blocks/slippery_platform" method="_on_collider_body_entered"]
 [connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]
