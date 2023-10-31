@@ -1,0 +1,133 @@
+[gd_scene load_steps=11 format=3 uid="uid://ie7jf53t0gnf"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_f8x61"]
+[ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_xf1vg"]
+[ext_resource type="AudioStream" uid="uid://ds1v5rr6wqnda" path="res://assets/audio/LeBron à la Stain - Extended Mix - Copyright © James69 Tunes - 2023.mp3" id="3_xbpqu"]
+
+[sub_resource type="Animation" id="Animation_nw8kr"]
+resource_name = "tilting"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0872665, -0.0872665, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7bn1c"]
+_data = {
+"tilting": SubResource("Animation_nw8kr")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ak0q1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4evbq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64wnu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xu3x3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5rjy1"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f8x61")
+
+[node name="background_colour" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="title_splash" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -491.0
+offset_top = 43.0
+offset_right = 491.0
+offset_bottom = 130.0
+grow_horizontal = 2
+pivot_offset = Vector2(491, 43)
+theme = ExtResource("2_xf1vg")
+theme_override_font_sizes/font_size = 61
+text = "Up from the Lava From as Lebron"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="title_splash"]
+libraries = {
+"": SubResource("AnimationLibrary_7bn1c")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xbpqu")
+volume_db = 5.475
+max_distance = 3.45635e+15
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -169.0
+offset_top = -77.0
+offset_right = 169.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(171, 93.5)
+alignment = 1
+
+[node name="play" type="Button" parent="buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_xf1vg")
+text = "Play"
+
+[node name="settings" type="Button" parent="buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_xf1vg")
+text = "Cogan"
+
+[node name="download" type="Button" parent="buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_xf1vg")
+text = "Dawn load the Full Game"
+
+[node name="version" type="Button" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.054902)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ak0q1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_4evbq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_64wnu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_xu3x3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5rjy1")
+text = "0.22"
+
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_finished"]
+[connection signal="pressed" from="buttons/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="buttons/download" to="." method="_on_download_pressed"]
+[connection signal="gui_input" from="version" to="." method="_on_version_gui_input"]
+[connection signal="mouse_entered" from="version" to="." method="_on_version_mouse_entered"]
+[connection signal="pressed" from="version" to="." method="_on_version_pressed"]

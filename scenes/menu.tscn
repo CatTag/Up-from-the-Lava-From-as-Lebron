@@ -243,10 +243,10 @@ layout_mode = 2
 [node name="colour_input" type="ColorPicker" parent="TabContainer/customization"]
 visible = false
 layout_mode = 2
-offset_left = 961.0
-offset_top = -22.0
-offset_right = 1199.0
-offset_bottom = 546.0
+offset_left = 977.0
+offset_top = -14.0
+offset_right = 1207.0
+offset_bottom = 554.0
 
 [node name="colour" type="HSplitContainer" parent="TabContainer/customization"]
 layout_mode = 1
@@ -303,18 +303,31 @@ text = "The game is getting the scores"
 [node name="HTTPRequest" type="HTTPRequest" parent="TabContainer/leaderboard"]
 script = ExtResource("4_ddc3v")
 
-[node name="worlds" type="ScrollContainer" parent="TabContainer"]
+[node name="worlds" type="Control" parent="TabContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/worlds"]
+layout_mode = 2
+offset_top = 1.0
+offset_right = 384.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "worlds are a work in progress and are very buggy!"
+
+[node name="worlds" type="ScrollContainer" parent="TabContainer/worlds"]
+layout_mode = 2
+anchor_top = 0.059
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.0480003
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("7_3vxkc")
 
-[node name="GridContainer" type="GridContainer" parent="TabContainer/worlds"]
+[node name="GridContainer" type="GridContainer" parent="TabContainer/worlds/worlds"]
 layout_mode = 2
 columns = 4
-
-[node name="Label" type="Label" parent="TabContainer/worlds/GridContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-text = "worlds coming later in life"
 
 [node name="settings" type="Control" parent="."]
 layout_mode = 1

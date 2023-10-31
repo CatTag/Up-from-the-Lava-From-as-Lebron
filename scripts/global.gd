@@ -1,11 +1,10 @@
 extends Node
 
 var debug_mode = false
-var version = "alpha.1.50"
+var version = "alpha.1.0.2"
 # rules for version
-# - every time you commit it goes up by one
-#    - if it is a small hotfix then just the end number
-#    - if it is a bigger update the second last number
+# - first word is release status, first num is major release/update, second is hotfix and 3rd just goes up when i make a commit
+
 var current_level = 1
 var score := "0.0"
 var int_score := 0
