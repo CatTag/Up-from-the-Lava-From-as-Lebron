@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://c72i8txurt32u"]
+
+[ext_resource type="Script" path="res://scripts/game_win.gd" id="1_mo48l"]
+[ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_ihwgr"]
+
+[node name="game_win" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mo48l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.5
+offset_bottom = 648.0
+scale = Vector2(28.72, 1)
+color = Color(0.356863, 0.356863, 0.356863, 0.556863)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 269.0
+offset_right = 818.0
+offset_bottom = 141.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 101
+text = "Winner Of!"
+horizontal_alignment = 1
+
+[node name="score" type="Label" parent="."]
+layout_mode = 2
+offset_left = 1.0
+offset_top = 121.0
+offset_right = 1152.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 36
+text = "Score: "
+horizontal_alignment = 1
+
+[node name="status" type="Label" parent="."]
+layout_mode = 2
+offset_left = 201.0
+offset_top = 170.0
+offset_right = 1352.0
+offset_bottom = 223.0
+scale = Vector2(0.638295, 0.638295)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "saving to servers..."
+horizontal_alignment = 1
+
+[node name="buttons2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 372.0
+offset_top = 195.0
+offset_right = 710.0
+offset_bottom = 382.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(171, 93.5)
+alignment = 1
+
+[node name="retry" type="Button" parent="buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_ihwgr")
+text = "Play Again"
+
+[node name="main_menu" type="Button" parent="buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_ihwgr")
+text = "Main Menu"
+
+[node name="quit" type="Button" parent="buttons2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_ihwgr")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Rage Quit"
+
+[node name="http" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="buttons2/retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="buttons2/main_menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="buttons2/quit" to="." method="_on_quit_pressed"]
+[connection signal="request_completed" from="http" to="." method="_on_http_request_completed"]

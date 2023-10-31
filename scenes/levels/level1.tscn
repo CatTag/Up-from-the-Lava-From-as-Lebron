@@ -1,17 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc4qhch611en5"]
+[gd_scene load_steps=22 format=3 uid="uid://cc4qhch611en5"]
 
 [ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_4vssq"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="1_a2kk2"]
 [ext_resource type="AudioStream" uid="uid://byp0rfdb8s2vo" path="res://assets/audio/death.wav" id="2_5c4d0"]
 [ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="2_ctdu2"]
+[ext_resource type="AudioStream" uid="uid://bds7afa5pdaia" path="res://assets/audio/Kevin MacLeod ~ Sneaky Snitch.mp3" id="3_1cycm"]
 [ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="3_8a5mm"]
 [ext_resource type="PackedScene" uid="uid://2uwcb8r6ohw4" path="res://scenes/game_over.tscn" id="3_iogaf"]
 [ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="4_074p4"]
 [ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="5_32hxy"]
+[ext_resource type="PackedScene" uid="uid://c72i8txurt32u" path="res://scenes/game_win.tscn" id="5_grvqa"]
 [ext_resource type="PackedScene" uid="uid://bh8r4ep8r58bv" path="res://scenes/finish_1.tscn" id="5_hx252"]
 [ext_resource type="PackedScene" uid="uid://djn0fe1y6a07u" path="res://scenes/spike.tscn" id="8_py7hd"]
 [ext_resource type="Script" path="res://scripts/slippery_platform.gd" id="9_5mf8s"]
 [ext_resource type="PackedScene" uid="uid://xrsoqyvx2ewa" path="res://scenes/ball.tscn" id="10_r75uu"]
+[ext_resource type="PackedScene" uid="uid://cwa2k0r2fit" path="res://scenes/finish_line.tscn" id="13_p5j57"]
 
 [sub_resource type="Animation" id="Animation_47jgf"]
 resource_name = "move"
@@ -35,6 +38,28 @@ _data = {
 "move": SubResource("Animation_47jgf")
 }
 
+[sub_resource type="Animation" id="Animation_dmlxs"]
+resource_name = "move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(2, 2, 1),
+"update": 0,
+"values": [Vector2(3491, 118), Vector2(3750, 118), Vector2(3491, 118)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_do0pr"]
+_data = {
+"move": SubResource("Animation_dmlxs")
+}
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_knr21"]
 friction = 0.05
 bounce = 1.0
@@ -54,11 +79,19 @@ stream = ExtResource("2_5c4d0")
 volume_db = 2.0
 max_distance = 4.53453e+10
 
+[node name="bgmusic" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("3_1cycm")
+autoplay = true
+max_distance = 3.98573e+16
+
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="timer" parent="ui" instance=ExtResource("2_ctdu2")]
 
 [node name="game_over" parent="ui" instance=ExtResource("3_iogaf")]
+
+[node name="game_win" parent="ui" instance=ExtResource("5_grvqa")]
+visible = false
 
 [node name="background" type="ColorRect" parent="."]
 offset_top = -5080.0
@@ -104,6 +137,22 @@ scale = Vector2(1.19212, 1.19717)
 position = Vector2(2464, 285)
 scale = Vector2(1.19212, 1.19717)
 
+[node name="platform11" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2884, 101)
+scale = Vector2(1.19212, 7.03717)
+
+[node name="platform12" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(3093, 270)
+scale = Vector2(1.19212, 5.23717)
+
+[node name="platform13" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(3046, 446)
+scale = Vector2(1.19212, 0.837171)
+
+[node name="platform14" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(2931, 349)
+scale = Vector2(1.19212, 0.837171)
+
 [node name="platform6" parent="blocks" instance=ExtResource("5_32hxy")]
 position = Vector2(1619, 464)
 scale = Vector2(1.19212, 1.19717)
@@ -116,6 +165,16 @@ scale = Vector2(1.79212, 0.277168)
 autoplay = "move"
 libraries = {
 "": SubResource("AnimationLibrary_pk1tu")
+}
+
+[node name="platform15" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(3750, 118)
+scale = Vector2(2.58246, 0.399401)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="blocks/platform15"]
+autoplay = "move"
+libraries = {
+"": SubResource("AnimationLibrary_do0pr")
 }
 
 [node name="finish1" parent="blocks" instance=ExtResource("5_hx252")]
@@ -196,6 +255,163 @@ scale = Vector2(0.405339, 0.405339)
 position = Vector2(2248, 513)
 scale = Vector2(0.405339, 0.405339)
 
+[node name="spike41" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3207, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike42" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3251, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike43" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3298, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike44" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3345, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike45" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3389, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike46" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3433, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike47" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3479, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike48" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3523, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike49" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3570, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike50" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3617, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike51" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3661, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike52" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3705, 513)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike23" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2902, 97)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike24" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3143, 286)
+rotation = 1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike25" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3143, 329)
+rotation = 1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike26" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3143, 372)
+rotation = 1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike27" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3143, 411)
+rotation = 1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike28" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3143, 448)
+rotation = 1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="platform16" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(4019, 270)
+rotation = -3.14159
+scale = Vector2(1.19212, 5.23717)
+
+[node name="platform17" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(4320, 554)
+rotation = -3.14159
+scale = Vector2(1.19212, 3.43717)
+
+[node name="platform18" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(4475, 547)
+rotation = -3.14159
+scale = Vector2(1.19212, 4.67717)
+
+[node name="platform19" parent="blocks" instance=ExtResource("5_32hxy")]
+position = Vector2(4651, 520)
+rotation = -3.14159
+scale = Vector2(1.19212, 5.23717)
+
+[node name="spike36" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3968, 93)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike37" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3968, 136)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike38" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3968, 179)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike39" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3968, 218)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike40" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(3968, 255)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike29" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 130)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike30" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 172)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike31" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 216)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike32" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 255)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike33" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 291)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike34" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 332)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike35" parent="blocks" instance=ExtResource("8_py7hd")]
+position = Vector2(2882, 366)
+rotation = -1.57079
+scale = Vector2(0.405339, 0.405339)
+
 [node name="spike17" parent="blocks" instance=ExtResource("8_py7hd")]
 position = Vector2(2295, 513)
 scale = Vector2(0.405339, 0.405339)
@@ -241,8 +457,32 @@ position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_mccxw")
 
 [node name="collider" type="Area2D" parent="blocks/slippery_platform"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blocks/slippery_platform/collider"]
+position = Vector2(20.09, -10.214)
+scale = Vector2(1, 2.48)
+shape = SubResource("RectangleShape2D_mccxw")
+
+[node name="slippery_platform2" type="StaticBody2D" parent="blocks"]
+position = Vector2(3215, 242)
+rotation = -0.568286
+scale = Vector2(5.65689, 0.474486)
+physics_material_override = SubResource("PhysicsMaterial_knr21")
+script = ExtResource("9_5mf8s")
+
+[node name="ColorRect" type="ColorRect" parent="blocks/slippery_platform2"]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocks/slippery_platform2"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_mccxw")
+
+[node name="collider" type="Area2D" parent="blocks/slippery_platform2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blocks/slippery_platform2/collider"]
 position = Vector2(20.09, -10.214)
 scale = Vector2(1, 2.48)
 shape = SubResource("RectangleShape2D_mccxw")
@@ -252,11 +492,18 @@ position = Vector2(1666, 412)
 rotation = 0.132451
 
 [node name="platform" parent="blocks" instance=ExtResource("5_32hxy")]
-position = Vector2(79, 512)
-scale = Vector2(100, 1.153)
+position = Vector2(-9, 512)
+scale = Vector2(193.84, 1.153)
 
 [node name="lava" parent="." instance=ExtResource("1_a2kk2")]
 position = Vector2(-1280, 309)
+move_every = 3.5
+move_distance = 320.0
+duration = 3.5
+
+[node name="finish_line" parent="." instance=ExtResource("13_p5j57")]
+position = Vector2(4774, 169)
+scale = Vector2(0.354786, 0.354786)
 
 [node name="camera" type="Node2D" parent="."]
 process_mode = 3
@@ -287,6 +534,27 @@ camera_node = NodePath("../camera")
 new_x_adjustment = 800.0
 duration = 1.0
 
+[node name="camera_movement_trigger4" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(2774, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 800.0
+duration = 1.0
+
+[node name="camera_movement_trigger5" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(3490, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 800.0
+duration = 1.0
+
+[node name="camera_movement_trigger6" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("3_8a5mm")]
+position = Vector2(4115, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 600.0
+duration = 1.0
+
 [connection signal="body_entered" from="blocks/spike" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike5" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike6" to="." method="_on_spike_body_entered"]
@@ -302,6 +570,36 @@ duration = 1.0
 [connection signal="body_entered" from="blocks/spike14" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike15" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike16" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike41" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike42" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike43" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike44" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike45" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike46" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike47" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike48" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike49" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike50" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike51" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike52" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike23" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike24" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike25" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike26" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike27" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike28" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike36" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike37" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike38" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike39" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike40" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike29" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike30" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike31" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike32" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike33" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike34" to="." method="_on_spike_body_entered"]
+[connection signal="body_entered" from="blocks/spike35" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike17" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike18" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike19" to="." method="_on_spike_body_entered"]
@@ -310,4 +608,7 @@ duration = 1.0
 [connection signal="body_entered" from="blocks/spike22" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/spike4" to="." method="_on_spike_body_entered"]
 [connection signal="body_entered" from="blocks/slippery_platform/collider" to="blocks/slippery_platform" method="_on_collider_body_entered"]
+[connection signal="body_entered" from="blocks/slippery_platform2/collider" to="blocks/slippery_platform2" method="_on_collider_body_entered"]
 [connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]
+[connection signal="body_entered" from="finish_line" to="." method="_on_finish_line_body_entered"]
+[connection signal="body_entered" from="finish_line" to="ui/game_win" method="_on_finish_line_body_entered"]

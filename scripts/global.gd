@@ -8,5 +8,7 @@ var version = "alpha.1.50"
 #    - if it is a bigger update the second last number
 var current_level = 1
 var score := "0.0"
+var int_score := 0
+var global_start_time := 0
 var local_name := ""
 var local_color := Color()

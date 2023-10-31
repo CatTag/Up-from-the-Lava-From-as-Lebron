@@ -44,43 +44,47 @@ func get_time(msec_time):
 	return str(minutes) + ":" + str(seconds) + "." + str(milliseconds)
 
 func populate_leaderboard(result, response_code, header, body):
-	var leaderboard = JSON.parse_string(body.get_string_from_utf8())
-	var leaderboard_objects = leaderboard["dreamlo"]["leaderboard"]["entry"]
-	print(leaderboard_objects)
-	
-	clear_scores()
-	
-	var count = 0
-	for i in leaderboard_objects:
-		var label = Label.new()
-		label.text = (str(count+1) + "# " + i['name'] + ": " + i['score'])
+	if body:
+		var leaderboard = JSON.parse_string(body.get_string_from_utf8())
+		var leaderboard_objects = leaderboard["dreamlo"]["leaderboard"]["entry"]
+		print(leaderboard_objects)
 		
-		if count == 0:
-			label.label_settings = LabelSettings.new()
+		clear_scores()
+		
+		var count = 0
+		for i in leaderboard_objects:
+			var label = Label.new()
+			label.text = (str(count+1) + "# " + i['name'] + ": " + i['score'])
 			
-			label.label_settings.font_size = 25
-			label.label_settings.font_color = Color(0,255,0)
-		elif count == 1:
-			label.label_settings = LabelSettings.new()
-			label.label_settings.font_size = 20
-			label.label_settings.font_color = Color(150,255,0)
-		elif count == 2:
-			label.label_settings = LabelSettings.new()
-			label.label_settings.font_size = 15
-			label.label_settings.font_color = Color(Color.CHOCOLATE)
-		else:
-			label.label_settings = LabelSettings.new()
-			label.label_settings.font_size = 12
-			label.label_settings.font_color = Color(255,255,255)
-			
-		label.text = (str(count+1) + "# " + i['name'] + ": " + get_time(int(i['score'])))
+			if count == 0:
+				label.label_settings = LabelSettings.new()
+				
+				label.label_settings.font_size = 25
+				label.label_settings.font_color = Color(0,255,0)
+			elif count == 1:
+				label.label_settings = LabelSettings.new()
+				label.label_settings.font_size = 20
+				label.label_settings.font_color = Color(150,255,0)
+			elif count == 2:
+				label.label_settings = LabelSettings.new()
+				label.label_settings.font_size = 15
+				label.label_settings.font_color = Color(Color.CHOCOLATE)
+			else:
+				label.label_settings = LabelSettings.new()
+				label.label_settings.font_size = 12
+				label.label_settings.font_color = Color(255,255,255)
+				
+			label.text = (str(count+1) + "# " + i['name'] + ": " + get_time(int(i['score'])))
 
-		# -"texture_normal"
-		
-		
-		# - 
-		
-		people.add_child(label)
-		count += 1
+			# -"texture_normal"
+			
+			
+			# - 
+			
+			people.add_child(label)
+			count += 1
+	
+	else:
+		people.get_child(0).text = "there is no one on the leader board!"
 
 		

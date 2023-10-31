@@ -3,10 +3,14 @@ extends Control
 # Thanks to this video (https://youtu.be/84b-43O7vkw) for helping me do this and chat gpt
 
 @onready var game_start_time = Time.get_ticks_msec()
+
 @onready var timer_label = $timer_label
 
 var current_time: float
 var speed: String
+
+func _ready():
+	global.global_start_time = game_start_time
 
 
 func get_time():

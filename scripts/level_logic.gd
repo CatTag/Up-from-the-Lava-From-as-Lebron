@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var timer = $ui/timer
 @onready var game_over_screen = $ui/game_over
+@onready var game_win_screen = $ui/game_win
 @onready var death = $sound/death
 
 
@@ -35,5 +36,8 @@ func _process(delta):
 	if Input.is_action_pressed("restart"):
 		restart()
 
-
-
+func _on_finish_line_body_entered(body):
+	global.score = timer.get_child(0).text
+	game_win_screen.visible = true
+	get_tree().paused = true
+	timer.visible = false

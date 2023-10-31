@@ -75,5 +75,5 @@ func _on_settings_toggled(button_pressed):
 		settings_button.disabled = false
 #		tween.tween_property(settings, "position", settings.position + Vector2(800, 0), 1).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 #		if button_pressed:
-#			tween.kill()
+#			tween.kill()!
 		

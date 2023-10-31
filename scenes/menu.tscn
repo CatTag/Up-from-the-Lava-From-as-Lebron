@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ie7jf53t0gnf"]
+[gd_scene load_steps=24 format=3 uid="uid://ie7jf53t0gnf"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_8deir"]
 [ext_resource type="Theme" uid="uid://bln0pt6y4g1m6" path="res://theme.tres" id="2_xf1vg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/leaderboard.gd" id="4_ddc3v"]
 [ext_resource type="Script" path="res://scripts/customization.gd" id="4_jyetr"]
 [ext_resource type="Texture2D" uid="uid://bjc4epjwdrere" path="res://assets/images/walk.png" id="5_lybql"]
+[ext_resource type="Script" path="res://scripts/worlds.gd" id="7_3vxkc"]
 [ext_resource type="Script" path="res://scripts/settings.gd" id="7_ceyti"]
 [ext_resource type="Theme" uid="uid://bwdmo4f40lbgy" path="res://settings_theme.tres" id="8_3vsdl"]
 [ext_resource type="Script" path="res://scripts/credits.gd" id="9_pdi0n"]
@@ -221,6 +222,7 @@ grow_vertical = 2
 clip_tabs = false
 
 [node name="customization" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("4_jyetr")
 
@@ -241,10 +243,10 @@ layout_mode = 2
 [node name="colour_input" type="ColorPicker" parent="TabContainer/customization"]
 visible = false
 layout_mode = 2
-offset_left = 905.0
-offset_top = -50.0
-offset_right = 1171.0
-offset_bottom = 518.0
+offset_left = 961.0
+offset_top = -22.0
+offset_right = 1199.0
+offset_bottom = 546.0
 
 [node name="colour" type="HSplitContainer" parent="TabContainer/customization"]
 layout_mode = 1
@@ -300,6 +302,19 @@ text = "The game is getting the scores"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="TabContainer/leaderboard"]
 script = ExtResource("4_ddc3v")
+
+[node name="worlds" type="ScrollContainer" parent="TabContainer"]
+layout_mode = 2
+script = ExtResource("7_3vxkc")
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/worlds"]
+layout_mode = 2
+columns = 4
+
+[node name="Label" type="Label" parent="TabContainer/worlds/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "worlds coming later in life"
 
 [node name="settings" type="Control" parent="."]
 layout_mode = 1
@@ -380,6 +395,7 @@ text = "single player: "
 [node name="check_box" type="CheckBox" parent="settings/settings_box/single_player"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 56
+disabled = true
 
 [node name="custom_server" type="HSplitContainer" parent="settings/settings_box"]
 layout_mode = 2
@@ -391,6 +407,8 @@ text = "custom server: "
 
 [node name="LineEdit" type="LineEdit" parent="settings/settings_box/custom_server"]
 layout_mode = 2
+placeholder_text = "127.0.0.1"
+editable = false
 
 [node name="debug_mode" type="HSplitContainer" parent="settings/settings_box"]
 layout_mode = 2
@@ -402,6 +420,7 @@ text = "debug mode: "
 
 [node name="LineEdit" type="LineEdit" parent="settings/settings_box/debug_mode"]
 layout_mode = 2
+editable = false
 
 [node name="ui_scale" type="HSplitContainer" parent="settings/settings_box"]
 layout_mode = 2
@@ -416,6 +435,7 @@ layout_mode = 2
 size_flags_vertical = 4
 max_value = 3.0
 step = 0.1
+editable = false
 tick_count = 15
 ticks_on_borders = true
 
