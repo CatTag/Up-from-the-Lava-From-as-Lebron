@@ -30,6 +30,7 @@ func _process(delta):
 		play.disabled = false
 		play.text = "Play"
 	
+	
 func _on_play_pressed():
 	global.local_color = colour_input.color
 	global.local_name = name_input.text

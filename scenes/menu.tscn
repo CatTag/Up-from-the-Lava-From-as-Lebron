@@ -222,7 +222,6 @@ grow_vertical = 2
 clip_tabs = false
 
 [node name="customization" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("4_jyetr")
 
@@ -243,10 +242,10 @@ layout_mode = 2
 [node name="colour_input" type="ColorPicker" parent="TabContainer/customization"]
 visible = false
 layout_mode = 2
-offset_left = 977.0
-offset_top = -14.0
-offset_right = 1207.0
-offset_bottom = 554.0
+offset_left = 866.0
+offset_top = -62.0
+offset_right = 1148.0
+offset_bottom = 506.0
 
 [node name="colour" type="HSplitContainer" parent="TabContainer/customization"]
 layout_mode = 1
@@ -304,6 +303,7 @@ text = "The game is getting the scores"
 script = ExtResource("4_ddc3v")
 
 [node name="worlds" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/worlds"]
@@ -481,9 +481,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3de0r")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_66o2t")
 theme_override_styles/focus = SubResource("StyleBoxFlat_sty02")
 text = "CashIgnitro:
-    - General programming
+    - Programming
     - Founder
-"
+    - Maker
+    - The first one to cry in a seat"
 alignment = 0
 
 [node name="HSeparator" type="HSeparator" parent="settings/settings_box/credits/VBoxContainer"]
@@ -548,6 +549,26 @@ text = "speedrunsed:
     - Telling me to add a speedrun timer"
 alignment = 0
 
+[node name="HSeparator4" type="HSeparator" parent="settings/settings_box/credits/VBoxContainer"]
+layout_mode = 2
+
+[node name="chair" type="Button" parent="settings/settings_box/credits/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0.282353, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_3de0r")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_66o2t")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sty02")
+text = "Chair:
+    - Where they go to cry in a chair"
+alignment = 0
+
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_finished"]
 [connection signal="pressed" from="buttons/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/play" to="TabContainer/customization" method="_on_play_pressed"]
@@ -565,3 +586,4 @@ alignment = 0
 [connection signal="pressed" from="settings/settings_box/credits/VBoxContainer/iggames" to="settings/settings_box/credits" method="_on_iggames_pressed"]
 [connection signal="pressed" from="settings/settings_box/credits/VBoxContainer/websoket" to="settings/settings_box/credits" method="_on_websoket_pressed"]
 [connection signal="pressed" from="settings/settings_box/credits/VBoxContainer/speedrunsed" to="settings/settings_box/credits" method="_on_speedrunsed_pressed"]
+[connection signal="pressed" from="settings/settings_box/credits/VBoxContainer/chair" to="settings/settings_box/credits" method="_on_speedrunsed_pressed"]
