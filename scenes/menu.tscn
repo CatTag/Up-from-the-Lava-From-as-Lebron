@@ -185,6 +185,12 @@ size_flags_vertical = 3
 theme = ExtResource("2_xf1vg")
 text = "Play"
 
+[node name="editor" type="Button" parent="buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_xf1vg")
+text = "Level editor"
+
 [node name="settings" type="Button" parent="buttons"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -572,6 +578,8 @@ alignment = 0
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_finished"]
 [connection signal="pressed" from="buttons/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="buttons/play" to="TabContainer/customization" method="_on_play_pressed"]
+[connection signal="pressed" from="buttons/editor" to="." method="_on_editor_pressed"]
+[connection signal="pressed" from="buttons/editor" to="TabContainer/customization" method="_on_play_pressed"]
 [connection signal="toggled" from="buttons/settings" to="." method="_on_settings_toggled"]
 [connection signal="pressed" from="buttons/download" to="." method="_on_download_pressed"]
 [connection signal="gui_input" from="version" to="." method="_on_version_gui_input"]

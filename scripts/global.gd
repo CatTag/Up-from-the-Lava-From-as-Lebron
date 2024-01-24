@@ -11,3 +11,5 @@ var int_score := 0
 var global_start_time := 0
 var local_name := ""
 var local_color := Color()
+
+var selected_tile: int = 0

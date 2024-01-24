@@ -11,30 +11,30 @@ extends Control
 
 
 func name_valid(n: String) -> bool:
-	if n.length() >= 3 && n.length() <= 16 && n != "":
-		for i in n:
-			if i == " ":
-				return true
-		return false
-	return true
+    if n.length() >= 3 && n.length() <= 16 && n != "":
+        for i in n:
+            if i == " ":
+                return true
+        return false
+    return true
 
 
 func _process(delta):
-	lebron.self_modulate = colour_input.color
-	example_name.text = name_input.text
-	colour_button.add_theme_color_override("theme_override_colors/font_color", colour_input.color)
-	if name_valid(name_input.text):
-		play.disabled = true
-		play.text = "Set a name first!"
-	else:
-		play.disabled = false
-		play.text = "Play"
-	
-	
+    lebron.self_modulate = colour_input.color
+    example_name.text = name_input.text
+    colour_button.add_theme_color_override("theme_override_colors/font_color", colour_input.color)
+    if name_valid(name_input.text):
+        play.disabled = true
+        play.text = "Set a name first!"
+    else:
+        play.disabled = false
+        play.text = "Play"
+    
+    
 func _on_play_pressed():
-	global.local_color = colour_input.color
-	global.local_name = name_input.text
+    global.local_color = colour_input.color
+    global.local_name = name_input.text
 
 func _on_colour_button_toggled(button_pressed):
-	colour_input.visible = button_pressed
-	
+    colour_input.visible = button_pressed
+    

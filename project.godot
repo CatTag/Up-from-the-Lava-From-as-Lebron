@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="labron up sim reloaded"
+config/name="labron up sim reloaded (level editor)"
 run/main_scene="res://scenes/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
