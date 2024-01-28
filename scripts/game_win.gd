@@ -38,3 +38,9 @@ func _on_finish_line_body_entered(body):
     var request = url + "/add/" + str(global.local_name) + "/" + str(score)
     print(request)
     http.request(request, PackedStringArray(), method)
+
+
+func _on_next_level_pressed():
+    global.current_level += 1 
+    get_tree().change_scene_to_file("res://scenes/levels/level"+str(global.current_level)+".tscn")
+
