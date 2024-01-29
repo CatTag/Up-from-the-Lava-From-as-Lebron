@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2bcofic0bcpc"]
+[gd_scene load_steps=14 format=3 uid="uid://c2bcofic0bcpc"]
 
 [ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_iqv6a"]
 [ext_resource type="AudioStream" uid="uid://byp0rfdb8s2vo" path="res://assets/audio/death.wav" id="2_i5kfq"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="7_hsub5"]
 [ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="8_rl6x6"]
 [ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="9_cdnsa"]
+[ext_resource type="PackedScene" uid="uid://bh8r4ep8r58bv" path="res://scenes/finish_1.tscn" id="9_hjges"]
+[ext_resource type="PackedScene" uid="uid://djn0fe1y6a07u" path="res://scenes/spike.tscn" id="10_j1y1p"]
 [ext_resource type="PackedScene" uid="uid://cwa2k0r2fit" path="res://scenes/finish_line.tscn" id="10_s7q6b"]
 [ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="11_8homc"]
 
@@ -38,21 +40,169 @@ max_distance = 3.98573e+16
 visible = false
 
 [node name="background" type="ColorRect" parent="."]
-offset_top = -5080.0
-offset_right = 17376.0
-offset_bottom = 648.0
+offset_left = -20.0
+offset_top = -5002.0
+offset_right = 17356.0
+offset_bottom = 726.0
+scale = Vector2(1, 0.99993)
 size_flags_horizontal = 0
 color = Color(0, 0, 0, 1)
 
 [node name="player" parent="." instance=ExtResource("7_hsub5")]
-position = Vector2(273, 265)
+position = Vector2(180, 166)
 scale = Vector2(0.58979, 0.58979)
 
 [node name="blocks" type="Node2D" parent="."]
 
-[node name="platform" parent="blocks" instance=ExtResource("8_rl6x6")]
+[node name="floor" parent="blocks" instance=ExtResource("8_rl6x6")]
 position = Vector2(-9, 512)
-scale = Vector2(30, 1)
+scale = Vector2(236.617, 3.38239)
+
+[node name="blocks" type="Node2D" parent="blocks"]
+
+[node name="block1" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(541, 400)
+scale = Vector2(4, 2.88)
+
+[node name="block2" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(544, 119)
+scale = Vector2(3.52, 3.52)
+
+[node name="block3" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(928, 397)
+scale = Vector2(4, 2.88)
+
+[node name="block4" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(811, 514)
+rotation = -0.785398
+scale = Vector2(4.137, 2.88)
+
+[node name="block5" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1208, 397)
+scale = Vector2(4, 2.88)
+
+[node name="block6" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1368, 397)
+rotation = 0.785398
+scale = Vector2(4.137, 2.88)
+
+[node name="block7" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1674, 439)
+scale = Vector2(4, 0.5)
+
+[node name="block8" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1751, 366)
+scale = Vector2(2.63496, 0.5)
+
+[node name="block9" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1916, 439)
+scale = Vector2(4, 0.5)
+
+[node name="block10" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1908, 366)
+scale = Vector2(2.19504, 0.508235)
+
+[node name="block11" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1829, 401)
+scale = Vector2(2.63496, 0.5)
+
+[node name="block12" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1829, 383)
+scale = Vector2(0.5, 0.5)
+
+[node name="block13" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1914.4, 383)
+scale = Vector2(0.5, 0.5)
+
+[node name="block14" parent="blocks/blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(1875, 402)
+scale = Vector2(0.3, 3.26)
+
+[node name="spikes" type="Node2D" parent="blocks"]
+
+[node name="spike5" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(541, 243)
+rotation = -1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike6" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(541, 196)
+rotation = -1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike7" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(541, 149)
+rotation = -1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike8" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(654, 116)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike9" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(607, 116)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike10" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(560, 116)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike11" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(687, 230)
+rotation = 1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike12" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(687, 183)
+rotation = 1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike13" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(687, 136)
+rotation = 1.5708
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike14" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1753, 436)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike15" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1676, 509)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike16" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1830, 509)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike17" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1992, 436)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike18" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1918, 509)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike19" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(2072, 509)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike20" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1825, 363)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="spike21" parent="blocks/spikes" instance=ExtResource("10_j1y1p")]
+position = Vector2(1926, 363)
+scale = Vector2(0.405339, 0.405339)
+
+[node name="pipes" type="Node2D" parent="blocks"]
+
+[node name="pipe1" parent="blocks/pipes" instance=ExtResource("9_hjges")]
+position = Vector2(1147, 411)
+scale = Vector2(0.0952933, 0.0952933)
+
+[node name="pipe2" parent="blocks/pipes" instance=ExtResource("9_hjges")]
+position = Vector2(1147, 457)
+scale = Vector2(0.095, -0.095)
 
 [node name="lava" parent="." instance=ExtResource("9_cdnsa")]
 position = Vector2(-1280, 309)
@@ -61,7 +211,7 @@ move_distance = 320.0
 duration = 3.5
 
 [node name="finish_line" parent="." instance=ExtResource("10_s7q6b")]
-position = Vector2(1063, 305)
+position = Vector2(2489, 404)
 scale = Vector2(0.354786, 0.354786)
 
 [node name="camera" type="Node2D" parent="."]
@@ -73,10 +223,24 @@ scale = Vector2(1.31992, 1.45322)
 position_smoothing_enabled = true
 
 [node name="camera_movement_trigger" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("11_8homc")]
-position = Vector2(886, 299)
+position = Vector2(1148, 299)
 scale = Vector2(1, 4.64)
 camera_node = NodePath("../camera")
-new_x_adjustment = 350.0
+new_x_adjustment = 1000.0
+duration = 1.0
+
+[node name="camera_movement_trigger2" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("11_8homc")]
+position = Vector2(2189, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 1000.0
+duration = 1.0
+
+[node name="camera_movement_trigger3" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("11_8homc")]
+position = Vector2(3175, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 1000.0
 duration = 1.0
 
 [connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]
