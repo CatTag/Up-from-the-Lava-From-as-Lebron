@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://c2bcofic0bcpc"]
+
+[ext_resource type="Script" path="res://scripts/level_logic.gd" id="1_iqv6a"]
+[ext_resource type="AudioStream" uid="uid://byp0rfdb8s2vo" path="res://assets/audio/death.wav" id="2_i5kfq"]
+[ext_resource type="AudioStream" uid="uid://bds7afa5pdaia" path="res://assets/audio/Kevin MacLeod ~ Sneaky Snitch.mp3" id="3_ndg4d"]
+[ext_resource type="PackedScene" uid="uid://4ih78j8en1hk" path="res://scenes/timer.tscn" id="4_lyedh"]
+[ext_resource type="PackedScene" uid="uid://2uwcb8r6ohw4" path="res://scenes/game_over.tscn" id="5_yo2dq"]
+[ext_resource type="PackedScene" uid="uid://c72i8txurt32u" path="res://scenes/game_win.tscn" id="6_pkgwv"]
+[ext_resource type="PackedScene" uid="uid://25qfwbj6j3yl" path="res://scenes/player.tscn" id="7_hsub5"]
+[ext_resource type="PackedScene" uid="uid://cqn4a3sr7pnen" path="res://scenes/platform.tscn" id="8_rl6x6"]
+[ext_resource type="PackedScene" uid="uid://dfow7oag5k40i" path="res://scenes/lava.tscn" id="9_cdnsa"]
+[ext_resource type="PackedScene" uid="uid://cwa2k0r2fit" path="res://scenes/finish_line.tscn" id="10_s7q6b"]
+[ext_resource type="PackedScene" uid="uid://csc4y55bxlon0" path="res://scenes/camera_movement_trigger.tscn" id="11_8homc"]
+
+[node name="level1" type="Node2D"]
+script = ExtResource("1_iqv6a")
+
+[node name="sound" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="death" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("2_i5kfq")
+volume_db = 2.0
+max_distance = 4.53453e+10
+
+[node name="bgmusic" type="AudioStreamPlayer2D" parent="sound"]
+stream = ExtResource("3_ndg4d")
+autoplay = true
+max_distance = 3.98573e+16
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="timer" parent="ui" instance=ExtResource("4_lyedh")]
+
+[node name="game_over" parent="ui" instance=ExtResource("5_yo2dq")]
+
+[node name="game_win" parent="ui" instance=ExtResource("6_pkgwv")]
+visible = false
+
+[node name="background" type="ColorRect" parent="."]
+offset_top = -5080.0
+offset_right = 17376.0
+offset_bottom = 648.0
+size_flags_horizontal = 0
+color = Color(0, 0, 0, 1)
+
+[node name="player" parent="." instance=ExtResource("7_hsub5")]
+position = Vector2(273, 265)
+scale = Vector2(0.58979, 0.58979)
+
+[node name="blocks" type="Node2D" parent="."]
+
+[node name="platform" parent="blocks" instance=ExtResource("8_rl6x6")]
+position = Vector2(-9, 512)
+scale = Vector2(30, 1)
+
+[node name="lava" parent="." instance=ExtResource("9_cdnsa")]
+position = Vector2(-1280, 309)
+move_every = 3.5
+move_distance = 320.0
+duration = 3.5
+
+[node name="finish_line" parent="." instance=ExtResource("10_s7q6b")]
+position = Vector2(1063, 305)
+scale = Vector2(0.354786, 0.354786)
+
+[node name="camera" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="camera" type="Camera2D" parent="camera"]
+position = Vector2(576, 324)
+scale = Vector2(1.31992, 1.45322)
+position_smoothing_enabled = true
+
+[node name="camera_movement_trigger" parent="camera" node_paths=PackedStringArray("camera_node") instance=ExtResource("11_8homc")]
+position = Vector2(886, 299)
+scale = Vector2(1, 4.64)
+camera_node = NodePath("../camera")
+new_x_adjustment = 350.0
+duration = 1.0
+
+[connection signal="body_entered" from="lava" to="." method="_on_lava_body_entered"]
+[connection signal="body_entered" from="finish_line" to="." method="_on_finish_line_body_entered"]
+[connection signal="body_entered" from="finish_line" to="ui/game_win" method="_on_finish_line_body_entered"]
