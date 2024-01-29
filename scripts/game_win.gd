@@ -43,4 +43,6 @@ func _on_finish_line_body_entered(body):
 func _on_next_level_pressed():
     global.current_level += 1 
     get_tree().change_scene_to_file("res://scenes/levels/level"+str(global.current_level)+".tscn")
+    get_tree().paused = false
+
 
